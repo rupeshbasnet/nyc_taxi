@@ -32,8 +32,8 @@ def filterTaxi(pId, lines):
 if __name__ == '__main__':
     sc = pyspark.SparkContext()
     sqlContext = SQLContext(sc)
-    taxi = sc.textFile('yellow.csv.gz')
-    bike = sc.textFile('citibike.csv')
+    taxi = sc.textFile('hdfs:///data/share/bdm/yellow.csv.gz')
+    bike = sc.textFile('hdfs:///data/share/bdm/citibike.csv')
     gBike = bike.mapPartitionsWithIndex(filterBike).cache()
     gTaxi = taxi.mapPartitionsWithIndex(filterTaxi).cache()
     gAll = gBike.map(lambda x: (x, 0)) + gBike.map(lambda x: (x, 1))   # concat two rdds
