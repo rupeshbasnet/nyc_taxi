@@ -31,6 +31,7 @@ def filterTaxi(pId, lines):
 
 if __name__ == '__main__':
     sc = pyspark.SparkContext()
+    sqlContext = SQLContext(sc)
     taxi = sc.textFile('yellow.csv.gz')
     bike = sc.textFile('citibike.csv')
     gBike = bike.mapPartitionsWithIndex(filterBike).cache()
